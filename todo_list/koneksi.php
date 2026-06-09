@@ -1,12 +1,14 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_todolist"; // Menghubungkan ke database to-do list
+$host     = getenv('MYSQLHOST') ?: 'localhost';
+$user     = getenv('MYSQLUSER') ?: 'root';
+$password = getenv('MYSQLPASSWORD') ?: ''; 
+$database = getenv('MYSQLDATABASE') ?: 'db_todolist'; // Sesuaikan nama DB lokal laptop Anda
+$port     = getenv('MYSQLPORT') ?: '3306';
 
-$conn = mysqli_connect($host, $user, $pass, $db);
+$koneksi = mysqli_connect($host, $user, $password, $database, $port);
+$conn = $koneksi; // Cadangan jika script Anda menggunakan nama variabel $conn
 
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+if (!$koneksi) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
 }
 ?>
